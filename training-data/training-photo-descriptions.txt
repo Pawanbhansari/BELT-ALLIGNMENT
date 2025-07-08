@@ -7,4 +7,4 @@ Pulley, center %
 6, -188%
 7,-157%
 8, 23%
-9, unknown
+9, 124%
