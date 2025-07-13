@@ -211,4 +211,4 @@ For questions, issues, or improvements:
 - **Last Updated**: July 2024
 - **Python Version**: 3.8+
 - **Flask Version**: 2.3.3
-- **Model Accuracy**: 6.04% MAE 
+- **Model Accuracy**: 6.04% MAE
