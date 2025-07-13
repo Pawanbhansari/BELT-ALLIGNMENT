@@ -1,0 +1,79 @@
+[
+    {
+        "predicted_class": 2,
+        "class_name": "Good Alignment",
+        "confidence": 0.5057974457740784,
+        "all_probabilities": "[0.35379347 0.02783455 0.50579745 0.11257452]",
+        "filename": "1.jpg"
+    },
+    {
+        "predicted_class": 2,
+        "class_name": "Good Alignment",
+        "confidence": 0.8166761994361877,
+        "all_probabilities": "[0.14689687 0.01077897 0.8166762  0.02564799]",
+        "filename": "2.jpg"
+    },
+    {
+        "predicted_class": 0,
+        "class_name": "Severe Left Misalignment",
+        "confidence": 0.3833851218223572,
+        "all_probabilities": "[0.38338512 0.11774013 0.24885677 0.250018  ]",
+        "filename": "3.jpg"
+    },
+    {
+        "predicted_class": 2,
+        "class_name": "Good Alignment",
+        "confidence": 0.6867587566375732,
+        "all_probabilities": "[0.17605793 0.03059043 0.68675876 0.10659293]",
+        "filename": "4.jpg"
+    },
+    {
+        "predicted_class": 2,
+        "class_name": "Good Alignment",
+        "confidence": 0.38375964760780334,
+        "all_probabilities": "[0.33654147 0.06849662 0.38375965 0.21120226]",
+        "filename": "5.jpg"
+    },
+    {
+        "predicted_class": 0,
+        "class_name": "Severe Left Misalignment",
+        "confidence": 0.6961109638214111,
+        "all_probabilities": "[0.69611096 0.00817421 0.26376158 0.0319532 ]",
+        "filename": "6.jpg"
+    },
+    {
+        "predicted_class": 0,
+        "class_name": "Severe Left Misalignment",
+        "confidence": 0.8167498111724854,
+        "all_probabilities": "[0.8167498  0.03783539 0.08184857 0.06356616]",
+        "filename": "7.jpg"
+    },
+    {
+        "predicted_class": 3,
+        "class_name": "Severe Right Misalignment",
+        "confidence": 0.400236040353775,
+        "all_probabilities": "[0.16695914 0.11143722 0.32136753 0.40023604]",
+        "filename": "8.jpg"
+    },
+    {
+        "predicted_class": 2,
+        "class_name": "Good Alignment",
+        "confidence": 0.42649951577186584,
+        "all_probabilities": "[0.30288857 0.07810393 0.42649952 0.19250798]",
+        "filename": "confusion_matrix.png"
+    },
+    {
+        "predicted_class": 0,
+        "class_name": "Severe Left Misalignment",
+        "confidence": 0.4608663320541382,
+        "all_probabilities": "[0.46086633 0.05037891 0.26104912 0.22770566]",
+        "filename": "label_distribution.png"
+    },
+    {
+        "predicted_class": 2,
+        "class_name": "Good Alignment",
+        "confidence": 0.4627716541290283,
+        "all_probabilities": "[0.4071444  0.05262307 0.46277165 0.07746091]",
+        "filename": "training_history.png"
+    }
+]

@@ -1,0 +1,189 @@
+[
+    {
+        "predicted_value": -71.7054294670598,
+        "alignment_status": "Severe Left Misalignment",
+        "direction": "Left",
+        "severity": "Severe",
+        "belt_center": 341.0852514108173,
+        "image_center": 800.0,
+        "offset_pixels": -458.9147485891827,
+        "belt_area": 63084,
+        "filename": "1.jpg"
+    },
+    {
+        "predicted_value": -32.429981188456054,
+        "alignment_status": "Mild Left Misalignment",
+        "direction": "Left",
+        "severity": "Mild",
+        "belt_center": 592.4481203938813,
+        "image_center": 800.0,
+        "offset_pixels": -207.55187960611875,
+        "belt_area": 242205,
+        "filename": "2.jpg"
+    },
+    {
+        "predicted_value": 1.8004701922506072,
+        "alignment_status": "Good Alignment",
+        "direction": "Center",
+        "severity": "Good",
+        "belt_center": 811.5230092304039,
+        "image_center": 800.0,
+        "offset_pixels": 11.523009230403886,
+        "belt_area": 134772,
+        "filename": "3.jpg"
+    },
+    {
+        "predicted_value": 24.234270065059658,
+        "alignment_status": "Good Alignment",
+        "direction": "Center",
+        "severity": "Good",
+        "belt_center": 955.0993284163818,
+        "image_center": 800.0,
+        "offset_pixels": 155.0993284163818,
+        "belt_area": 133416,
+        "filename": "4.jpg"
+    },
+    {
+        "predicted_value": -26.85747488525836,
+        "alignment_status": "Mild Left Misalignment",
+        "direction": "Left",
+        "severity": "Mild",
+        "belt_center": 628.1121607343465,
+        "image_center": 800.0,
+        "offset_pixels": -171.8878392656535,
+        "belt_area": 239451,
+        "filename": "5.jpg"
+    },
+    {
+        "predicted_value": -32.374235632866295,
+        "alignment_status": "Mild Left Misalignment",
+        "direction": "Left",
+        "severity": "Mild",
+        "belt_center": 592.8048919496557,
+        "image_center": 800.0,
+        "offset_pixels": -207.1951080503443,
+        "belt_area": 21055,
+        "filename": "6.jpg"
+    },
+    {
+        "predicted_value": -48.15464865260424,
+        "alignment_status": "Mild Left Misalignment",
+        "direction": "Left",
+        "severity": "Mild",
+        "belt_center": 491.8102486233329,
+        "image_center": 800.0,
+        "offset_pixels": -308.1897513766671,
+        "belt_area": 54661,
+        "filename": "7.jpg"
+    },
+    {
+        "predicted_value": -21.42341737013515,
+        "alignment_status": "Mild Left Misalignment",
+        "direction": "Left",
+        "severity": "Mild",
+        "belt_center": 662.890128831135,
+        "image_center": 800.0,
+        "offset_pixels": -137.10987116886497,
+        "belt_area": 215243,
+        "filename": "8.jpg"
+    },
+    {
+        "predicted_value": -75.37283995585724,
+        "alignment_status": "Severe Left Misalignment",
+        "direction": "Left",
+        "severity": "Severe",
+        "belt_center": 444.65935399551904,
+        "image_center": 1120.0,
+        "offset_pixels": -675.340646004481,
+        "belt_area": 107120,
+        "filename": "confusion_matrix.png"
+    },
+    {
+        "predicted_value": -84.00053998387408,
+        "alignment_status": "Severe Left Misalignment",
+        "direction": "Left",
+        "severity": "Severe",
+        "belt_center": 487.07358499157596,
+        "image_center": 1485.0,
+        "offset_pixels": -997.9264150084241,
+        "belt_area": 21961,
+        "filename": "label_distribution.png"
+    },
+    {
+        "predicted_value": -58.55662347968399,
+        "alignment_status": "Severe Left Misalignment",
+        "direction": "Left",
+        "severity": "Severe",
+        "belt_center": 1162.7906361176927,
+        "image_center": 2188.0,
+        "offset_pixels": -1025.2093638823073,
+        "belt_area": 1231989,
+        "filename": "mistake_analysis.png"
+    },
+    {
+        "predicted_value": -37.49067688071124,
+        "alignment_status": "Mild Left Misalignment",
+        "direction": "Left",
+        "severity": "Mild",
+        "belt_center": 1039.6107586571504,
+        "image_center": 1485.0,
+        "offset_pixels": -445.3892413428496,
+        "belt_area": 7566,
+        "filename": "regression_evaluation.png"
+    },
+    {
+        "predicted_value": 19.043898534923972,
+        "alignment_status": "Good Alignment",
+        "direction": "Center",
+        "severity": "Good",
+        "belt_center": 1095.8859800537016,
+        "image_center": 951.0,
+        "offset_pixels": 144.8859800537016,
+        "belt_area": 10428,
+        "filename": "regression_training_history.png"
+    },
+    {
+        "predicted_value": -54.9946978686123,
+        "alignment_status": "Severe Left Misalignment",
+        "direction": "Left",
+        "severity": "Severe",
+        "belt_center": 999.6757144362165,
+        "image_center": 1785.0,
+        "offset_pixels": -785.3242855637835,
+        "belt_area": 294253,
+        "filename": "segmentation_dataset_analysis.png"
+    },
+    {
+        "predicted_value": -98.46157540835821,
+        "alignment_status": "Severe Left Misalignment",
+        "direction": "Left",
+        "severity": "Severe",
+        "belt_center": 505.7162190183259,
+        "image_center": 2382.0,
+        "offset_pixels": -1876.2837809816742,
+        "belt_area": 636586,
+        "filename": "segmentation_samples.png"
+    },
+    {
+        "predicted_value": -74.4201507673291,
+        "alignment_status": "Severe Left Misalignment",
+        "direction": "Left",
+        "severity": "Severe",
+        "belt_center": 904.3677042801556,
+        "image_center": 2235.0,
+        "offset_pixels": -1330.6322957198445,
+        "belt_area": 514,
+        "filename": "segmentation_training_history.png"
+    },
+    {
+        "predicted_value": -65.394310549672,
+        "alignment_status": "Severe Left Misalignment",
+        "direction": "Left",
+        "severity": "Severe",
+        "belt_center": 1065.7497273718648,
+        "image_center": 2235.0,
+        "offset_pixels": -1169.2502726281352,
+        "belt_area": 1834,
+        "filename": "training_history.png"
+    }
+]

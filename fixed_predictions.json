@@ -1,0 +1,58 @@
+[
+    {
+        "filename": "1.jpg",
+        "true": 53.4,
+        "predicted": 44.587500000000055,
+        "error": -8.812499999999943,
+        "abs_error": 8.812499999999943
+    },
+    {
+        "filename": "2.jpg",
+        "true": 16.2,
+        "predicted": -44.497499999999995,
+        "error": -60.69749999999999,
+        "abs_error": 60.69749999999999
+    },
+    {
+        "filename": "3.jpg",
+        "true": 67.0,
+        "predicted": 33.735,
+        "error": -33.265,
+        "abs_error": 33.265
+    },
+    {
+        "filename": "4.jpg",
+        "true": 100.0,
+        "predicted": 100.68749999999997,
+        "error": 0.6874999999999716,
+        "abs_error": 0.6874999999999716
+    },
+    {
+        "filename": "5.jpg",
+        "true": 0.0,
+        "predicted": 21.83849999999999,
+        "error": 21.83849999999999,
+        "abs_error": 21.83849999999999
+    },
+    {
+        "filename": "6.jpg",
+        "true": -188.0,
+        "predicted": 100.0,
+        "error": 288.0,
+        "abs_error": 288.0
+    },
+    {
+        "filename": "7.jpg",
+        "true": -157.0,
+        "predicted": -124.03950000000002,
+        "error": 32.96049999999998,
+        "abs_error": 32.96049999999998
+    },
+    {
+        "filename": "8.jpg",
+        "true": 23.0,
+        "predicted": 35.92349999999999,
+        "error": 12.92349999999999,
+        "abs_error": 12.92349999999999
+    }
+]

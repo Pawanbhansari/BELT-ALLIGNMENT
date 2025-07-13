@@ -1,0 +1,7 @@
+{
+    "best_model_type": "RandomForest",
+    "best_score": -0.3559905326740944,
+    "n_samples": 8,
+    "outlier_threshold": 100,
+    "extreme_threshold": 0.25
+}

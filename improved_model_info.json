@@ -1,0 +1,127 @@
+{
+    "train_score": 0.7935324227123836,
+    "test_score": -0.2390751079437594,
+    "feature_importance": [
+        {
+            "feature": "line_angle_std",
+            "importance": 0.11044481367981476
+        },
+        {
+            "feature": "avg_line_angle",
+            "importance": 0.09223864029058132
+        },
+        {
+            "feature": "contour_offset_y",
+            "importance": 0.08497263878202684
+        },
+        {
+            "feature": "center_mean_intensity",
+            "importance": 0.0797004915073744
+        },
+        {
+            "feature": "contour_offset_y_norm",
+            "importance": 0.07735914546998122
+        },
+        {
+            "feature": "contour_center_y",
+            "importance": 0.07480273558243217
+        },
+        {
+            "feature": "right_mean_intensity",
+            "importance": 0.05415364339280917
+        },
+        {
+            "feature": "intensity_contrast",
+            "importance": 0.05214377515266562
+        },
+        {
+            "feature": "edge_offset_y",
+            "importance": 0.049066324046550334
+        },
+        {
+            "feature": "edge_offset_x",
+            "importance": 0.041676544196657256
+        },
+        {
+            "feature": "left_mean_intensity",
+            "importance": 0.04145567608012439
+        },
+        {
+            "feature": "edge_center_x",
+            "importance": 0.04089064118523199
+        },
+        {
+            "feature": "contour_area",
+            "importance": 0.03741774732724243
+        },
+        {
+            "feature": "edge_center_y",
+            "importance": 0.03138802173236448
+        },
+        {
+            "feature": "bounding_height",
+            "importance": 0.022623779370587568
+        },
+        {
+            "feature": "edge_density",
+            "importance": 0.02102171230573837
+        },
+        {
+            "feature": "line_count",
+            "importance": 0.020764860494166305
+        },
+        {
+            "feature": "bounding_width",
+            "importance": 0.018633112517665053
+        },
+        {
+            "feature": "hist_std",
+            "importance": 0.014223343929906866
+        },
+        {
+            "feature": "contour_offset_x",
+            "importance": 0.010959641597998053
+        },
+        {
+            "feature": "contour_offset_x_norm",
+            "importance": 0.010534068650377721
+        },
+        {
+            "feature": "hist_skew",
+            "importance": 0.0054084389067155314
+        },
+        {
+            "feature": "aspect_ratio",
+            "importance": 0.005170649813197572
+        },
+        {
+            "feature": "contour_center_x",
+            "importance": 0.0009224633710375251
+        },
+        {
+            "feature": "hist_mean",
+            "importance": 0.0006105046281147497
+        },
+        {
+            "feature": "image_height",
+            "importance": 0.0006040891571325676
+        },
+        {
+            "feature": "image_area",
+            "importance": 0.0005457467520242832
+        },
+        {
+            "feature": "center_y",
+            "importance": 0.0002667500794814745
+        },
+        {
+            "feature": "image_width",
+            "importance": 0.0
+        },
+        {
+            "feature": "center_x",
+            "importance": 0.0
+        }
+    ],
+    "n_samples": 8
+}
