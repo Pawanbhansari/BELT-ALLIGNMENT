@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belt Alignment Annotation Tool</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f8fb; margin: 0; }
+        .container { max-width: 950px; margin: 40px auto; background: #fff; border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); padding: 36px 40px 32px 40px; }
+        h2 { margin-top: 0; letter-spacing: 1px; }
+        .step-indicator { display: flex; align-items: center; margin-bottom: 18px; }
+        .step { display: flex; align-items: center; margin-right: 18px; }
+        .step-circle { width: 28px; height: 28px; border-radius: 50%; background: #e3eafc; color: #1976d2; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.1em; margin-right: 7px; border: 2px solid #1976d2; }
+        .step.active .step-circle { background: #1976d2; color: #fff; }
+        .step-label { font-size: 1em; color: #333; }
+        #instructions { margin-bottom: 18px; color: #444; font-size: 1.08em; min-height: 32px; }
+        #canvasWrapper { position: relative; display: inline-block; margin-bottom: 12px; }
+        #annotationCanvas { border: 2px solid #1976d2; border-radius: 8px; background: #f0f4f8; cursor: crosshair; transition: box-shadow 0.2s; }
+        #annotationCanvas:focus { outline: none; box-shadow: 0 0 0 2px #1976d2; }
+        .legend { margin: 18px 0 10px 0; display: flex; gap: 18px; font-size: 1em; }
+        .legend-item { display: flex; align-items: center; gap: 6px; }
+        .legend-dot { width: 16px; height: 16px; border-radius: 50%; display: inline-block; }
+        .dot-belt { background: #1976d2; border: 2px solid #1976d2; }
+        .dot-pulley { background: #e53935; border: 2px solid #e53935; }
+        .dot-center { background: #43a047; border: 2px solid #388e3c; }
+        .controls { margin-top: 10px; display: flex; gap: 12px; align-items: center; }
+        .btn { background: #1976d2; color: #fff; border: none; padding: 10px 22px; border-radius: 5px; cursor: pointer; font-size: 1em; transition: background 0.2s; }
+        .btn:active { background: #125ea2; }
+        #resetBtn { background: #e53935; }
+        #resetBtn:active { background: #b71c1c; }
+        #undoBtn { background: #ffa726; color: #333; }
+        #undoBtn:active { background: #fb8c00; }
+        #helpBtn { background: #43a047; }
+        #helpBtn:active { background: #2e7031; }
+        #coordsBox { width: 100%; height: 120px; margin-top: 18px; font-family: monospace; font-size: 1em; border-radius: 6px; border: 1.5px solid #b0bec5; background: #f7fafc; padding: 10px; }
+        #copyBtn { margin-top: 8px; background: #388e3c; }
+        #copyBtn:active { background: #2e7031; }
+        #uploadInput { margin-bottom: 18px; }
+        .help-modal-bg { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.25); z-index: 1000; }
+        .help-modal { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); background: #fff; border-radius: 10px; box-shadow: 0 4px 24px rgba(0,0,0,0.18); padding: 32px 36px; max-width: 420px; min-width: 320px; z-index: 1001; }
+        .help-modal h3 { margin-top: 0; }
+        .help-modal ul { padding-left: 20px; }
+        .help-modal .btn { margin-top: 18px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2><i class="fas fa-ruler-horizontal"></i> Belt Alignment Annotation Tool</h2>
+    <div class="step-indicator">
+        <div class="step" id="step1"><div class="step-circle">1</div><div class="step-label">Belt Points</div></div>
+        <div class="step" id="step2"><div class="step-circle">2</div><div class="step-label">Pulley Points</div></div>
+        <div class="step" id="step3"><div class="step-circle">3</div><div class="step-label">Adjust Center</div></div>
+    </div>
+    <div id="instructions"></div>
+    <input type="file" id="uploadInput" accept="image/*">
+    <div class="legend">
+        <div class="legend-item"><span class="legend-dot dot-belt"></span> Belt Touch Points</div>
+        <div class="legend-item"><span class="legend-dot dot-pulley"></span> Pulley Intersection Points</div>
+        <div class="legend-item"><span class="legend-dot dot-center"></span> Pulley Center (draggable)</div>
+    </div>
+    <div id="canvasWrapper">
+        <canvas id="annotationCanvas" width="700" height="400" tabindex="0"></canvas>
+    </div>
+    <div class="controls">
+        <button class="btn" id="undoBtn"><i class="fas fa-undo"></i> Undo</button>
+        <button class="btn" id="resetBtn"><i class="fas fa-trash"></i> Reset</button>
+        <button class="btn" id="helpBtn"><i class="fas fa-question-circle"></i> Help</button>
+    </div>
+    <textarea id="coordsBox" readonly></textarea>
+    <button class="btn" id="copyBtn"><i class="fas fa-copy"></i> Copy to Clipboard</button>
+    <div class="help-modal-bg" id="helpModalBg">
+        <div class="help-modal">
+            <h3><i class="fas fa-info-circle"></i> How to Use</h3>
+            <ul>
+                <li>Upload an image of the belt and pulley.</li>
+                <li>Click <b>two points</b> where the belt touches the pulley (blue).</li>
+                <li>A line will be drawn through these points.</li>
+                <li>Click <b>two points</b> where this line intersects the pulley (red).</li>
+                <li>The center point (green) will appear and can be dragged to adjust.</li>
+                <li>Use <b>Undo</b> to remove the last point, or <b>Reset</b> to start over.</li>
+                <li>Copy the coordinates to your CSV using the button below.</li>
+            </ul>
+            <button class="btn" onclick="closeHelp()">Close</button>
+        </div>
+    </div>
+</div>
+<script>
+const canvas = document.getElementById('annotationCanvas');
+const ctx = canvas.getContext('2d');
+const uploadInput = document.getElementById('uploadInput');
+const coordsBox = document.getElementById('coordsBox');
+const resetBtn = document.getElementById('resetBtn');
+const undoBtn = document.getElementById('undoBtn');
+const copyBtn = document.getElementById('copyBtn');
+const helpBtn = document.getElementById('helpBtn');
+const helpModalBg = document.getElementById('helpModalBg');
+
+let img = new Image();
+let imgLoaded = false;
+let points = [];
+let pulleyPoints = [];
+let centerPoint = null;
+let draggingCenter = false;
+const pointRadius = 10;
+let step = 1;
+
+function setStep(newStep) {
+    step = newStep;
+    document.getElementById('step1').classList.toggle('active', step === 1);
+    document.getElementById('step2').classList.toggle('active', step === 2);
+    document.getElementById('step3').classList.toggle('active', step === 3);
+    let msg = '';
+    if (!imgLoaded) {
+        msg = 'Upload an image to begin.';
+    } else if (step === 1) {
+        msg = 'Click the <b>first</b> point where the belt touches the pulley.';
+        if (points.length === 1) msg = 'Click the <b>second</b> belt touch point.';
+    } else if (step === 2) {
+        msg = 'Click the <b>first</b> intersection point where the blue line meets the pulley.';
+        if (pulleyPoints.length === 1) msg = 'Click the <b>second</b> pulley intersection point.';
+    } else if (step === 3) {
+        msg = 'Drag the green center point to adjust if needed. Copy the results below.';
+    }
+    document.getElementById('instructions').innerHTML = msg;
+}
+
+function drawAll() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (imgLoaded) ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    // Draw belt points
+    ctx.lineWidth = 2;
+    if (points.length >= 1) {
+        ctx.strokeStyle = '#1976d2';
+        ctx.fillStyle = '#1976d2';
+        ctx.beginPath();
+        ctx.arc(points[0].x, points[0].y, pointRadius, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.stroke();
+    }
+    if (points.length === 2) {
+        ctx.beginPath();
+        ctx.arc(points[1].x, points[1].y, pointRadius, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.stroke();
+        // Draw line through belt points
+        drawExtendedLine(points[0], points[1], '#1976d2');
+    }
+    // Draw pulley intersection points
+    if (pulleyPoints.length >= 1) {
+        ctx.strokeStyle = '#e53935';
+        ctx.fillStyle = '#e53935';
+        ctx.beginPath();
+        ctx.arc(pulleyPoints[0].x, pulleyPoints[0].y, pointRadius, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.stroke();
+    }
+    if (pulleyPoints.length === 2) {
+        ctx.beginPath();
+        ctx.arc(pulleyPoints[1].x, pulleyPoints[1].y, pointRadius, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.stroke();
+        // Draw center point
+        if (centerPoint) {
+            ctx.beginPath();
+            ctx.arc(centerPoint.x, centerPoint.y, pointRadius, 0, 2 * Math.PI);
+            ctx.fillStyle = '#43a047';
+            ctx.fill();
+            ctx.strokeStyle = '#388e3c';
+            ctx.stroke();
+        }
+    }
+}
+
+function drawExtendedLine(p1, p2, color) {
+    // Draw a line through p1 and p2, extending beyond the points
+    const dx = p2.x - p1.x;
+    const dy = p2.y - p1.y;
+    const len = Math.sqrt(dx*dx + dy*dy);
+    const ex = dx / len;
+    const ey = dy / len;
+    const ext = 1000; // extend far enough
+    const start = { x: p1.x - ex * ext, y: p1.y - ey * ext };
+    const end = { x: p2.x + ex * ext, y: p2.y + ey * ext };
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2.5;
+    ctx.setLineDash([8, 8]);
+    ctx.beginPath();
+    ctx.moveTo(start.x, start.y);
+    ctx.lineTo(end.x, end.y);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.restore();
+}
+
+function updateCoordsBox() {
+    let txt = '';
+    txt += 'Belt points (blue):\n';
+    points.forEach((p, i) => {
+        txt += `  ${i+1}: (${p.x.toFixed(1)}, ${p.y.toFixed(1)})\n`;
+    });
+    txt += 'Pulley points (red):\n';
+    pulleyPoints.forEach((p, i) => {
+        txt += `  ${i+1}: (${p.x.toFixed(1)}, ${p.y.toFixed(1)})\n`;
+    });
+    if (centerPoint) {
+        txt += `Center point (green): (${centerPoint.x.toFixed(1)}, ${centerPoint.y.toFixed(1)})\n`;
+    }
+    coordsBox.value = txt;
+}
+
+canvas.addEventListener('mousedown', function(e) {
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    // If dragging center point
+    if (centerPoint && Math.hypot(centerPoint.x - x, centerPoint.y - y) < pointRadius + 4 && step === 3) {
+        draggingCenter = true;
+        return;
+    }
+    if (!imgLoaded) return;
+    if (step === 1 && points.length < 2) {
+        points.push({x, y});
+        if (points.length === 2) setStep(2);
+    } else if (step === 2 && pulleyPoints.length < 2) {
+        pulleyPoints.push({x, y});
+        if (pulleyPoints.length === 2) {
+            centerPoint = {
+                x: (pulleyPoints[0].x + pulleyPoints[1].x) / 2,
+                y: (pulleyPoints[0].y + pulleyPoints[1].y) / 2
+            };
+            setStep(3);
+        }
+    }
+    drawAll();
+    updateCoordsBox();
+});
+
+canvas.addEventListener('mousemove', function(e) {
+    if (draggingCenter && centerPoint && step === 3) {
+        const rect = canvas.getBoundingClientRect();
+        centerPoint.x = e.clientX - rect.left;
+        centerPoint.y = e.clientY - rect.top;
+        drawAll();
+        updateCoordsBox();
+    }
+});
+
+canvas.addEventListener('mouseup', function(e) {
+    draggingCenter = false;
+});
+
+resetBtn.onclick = function() {
+    points = [];
+    pulleyPoints = [];
+    centerPoint = null;
+    draggingCenter = false;
+    setStep(1);
+    drawAll();
+    updateCoordsBox();
+};
+
+undoBtn.onclick = function() {
+    if (step === 3 && centerPoint) {
+        centerPoint = null;
+        pulleyPoints.pop();
+        setStep(2);
+    } else if (step === 2 && pulleyPoints.length > 0) {
+        pulleyPoints.pop();
+    } else if (step === 1 && points.length > 0) {
+        points.pop();
+    }
+    drawAll();
+    updateCoordsBox();
+};
+
+uploadInput.onchange = function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+        img.onload = function() {
+            imgLoaded = true;
+            // Resize canvas to image
+            canvas.width = img.width;
+            canvas.height = img.height;
+            points = [];
+            pulleyPoints = [];
+            centerPoint = null;
+            draggingCenter = false;
+            setStep(1);
+            drawAll();
+            updateCoordsBox();
+        };
+        img.src = evt.target.result;
+    };
+    reader.readAsDataURL(file);
+};
+
+copyBtn.onclick = function() {
+    coordsBox.select();
+    document.execCommand('copy');
+    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+    setTimeout(() => { copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy to Clipboard'; }, 1200);
+};
+
+helpBtn.onclick = function() {
+    helpModalBg.style.display = 'block';
+};
+function closeHelp() {
+    helpModalBg.style.display = 'none';
+}
+window.closeHelp = closeHelp;
+
+// Initial state
+setStep(1);
+drawAll();
+updateCoordsBox();
+</script>
+</body>
+</html> 

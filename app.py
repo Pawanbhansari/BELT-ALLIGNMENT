@@ -499,6 +499,10 @@ def train_model():
     except Exception as e:
         return jsonify({'error': f'Training failed: {str(e)}'}), 500
 
+@app.route('/annotate')
+def annotate():
+    return render_template('annotate.html')
+
 if __name__ == '__main__':
     # Train the model on startup if data exists
     if os.path.exists('labels.csv'):
